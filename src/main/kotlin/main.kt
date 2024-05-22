@@ -32,8 +32,9 @@ fun main() {
                 val posts = getPosts(client)
                     .map { post ->
                         async {
-                            getAuthor(client, post.authorId)
-                            PostWithComments(post, getComments(client, post.id))
+
+                            PostWithComments(post, author = getAuthor(client, post.authorId).toString(),
+                                getComments(client, post.id))
 
                         }
                     }.awaitAll()
